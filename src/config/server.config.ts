@@ -1,6 +1,6 @@
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from 'dotenv';
+dotenv.config();
 
 export default {
-  PORT: process.env.PORT
-}
+  PORT: process.env.PORT,
+};

@@ -51,3 +51,16 @@ So, modify as:
 ```
 6. "dev": "npx --kill-others concurrently \"npx run watch\" \"npm start\""
 ```
+
+
+---
+## Adding ESLint
+
+Run this:
+```
+npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin typescript
+```
+And Trust Me, It was a Hell Lot of Problem Setting it Up -> At end, I have to rely on AI to do it for me...., So If Possible, just copy the eslint.config.js. And set type to module in pkg.json
+
+---
+

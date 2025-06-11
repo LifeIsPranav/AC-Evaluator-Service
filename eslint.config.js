@@ -2,6 +2,8 @@ import js from '@eslint/js';
 import globals from 'globals';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+import simpleImportSort from "eslint-plugin-simple-import-sort";
+
 
 export default [
   // Global ignores
@@ -46,6 +48,7 @@ export default [
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
+      "simple-import-sort": simpleImportSort
     },
     rules: {
       // Base rules
@@ -71,6 +74,9 @@ export default [
       'arrow-parens': ['error', 'always'],
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
       'eol-last': ['error', 'always'],
+
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
     },
   },
 ];

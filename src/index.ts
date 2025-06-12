@@ -21,7 +21,7 @@ app.listen(PORT, () => {
   console.log(`Server Started on http://localhost:${PORT}`);
 
   sampleQueueProducer('SampleJob', {
-    name: 'Pranav',
+    name: 'Pranav Kr',
     company: 'Google',
     position: 'SDE 2',
     location: 'REMOTE',

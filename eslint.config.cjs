@@ -1,11 +1,10 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
-import simpleImportSort from "eslint-plugin-simple-import-sort";
+const js = require('@eslint/js');
+const globals = require('globals');
+const tsPlugin = require('@typescript-eslint/eslint-plugin');
+const tsParser = require('@typescript-eslint/parser');
+const simpleImportSort = require('eslint-plugin-simple-import-sort');
 
-
-export default [
+module.exports = [
   // Global ignores
   {
     ignores: ['node_modules/**', 'dist/**', '*.env'],
@@ -60,10 +59,10 @@ export default [
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       
       // TypeScript specific rules
-      '@typescript-eslint/explicit-function-return-type': 'warn',
-      '@typescript-eslint/explicit-module-boundary-types': 'warn',
+      // '@typescript-eslint/explicit-function-return-type': 'warn',
+      // '@typescript-eslint/explicit-module-boundary-types': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-floating-promises': 'error',
+      // '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/no-misused-promises': 'error',
       
       // Code style

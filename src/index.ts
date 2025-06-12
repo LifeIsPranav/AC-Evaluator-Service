@@ -3,6 +3,7 @@ import express, { Express } from 'express';
 import { PORT } from './config/serverConfig';
 import sampleQueueProducer from './producers/sampleQueueProducer';
 import apiRouter from './routes';
+import bullBoard from './utils/bullBoard';
 import sampleWorker from './workers/sampleWorker';
 
 const app: Express = express();
@@ -15,7 +16,7 @@ app.get('/', (_, res) => {
 });
 
 app.use('/api', apiRouter);
-
+app.use('/admin/queues', bullBoard.bullRouter);
 app.listen(PORT, () => {
   console.log(`Server Started on http://localhost:${PORT}`);
 

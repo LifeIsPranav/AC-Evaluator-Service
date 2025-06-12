@@ -1,5 +1,8 @@
 import { Queue } from 'bullmq';
 
 import redisConnection from '../config/redisConfig';
+import bullBoard from '../utils/bullBoard';
 
-export default new Queue('SampleQueue', { connection: redisConnection });
+const sampleQueue = new Queue('SampleQueue', { connection: redisConnection });
+bullBoard.addQtoBull(sampleQueue);
+export default sampleQueue;

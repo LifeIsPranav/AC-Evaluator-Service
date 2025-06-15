@@ -1,7 +1,6 @@
 import express, { Express } from 'express';
 
 import { PORT } from './config/serverConfig';
-import sampleQueueProducer from './producers/sampleQueueProducer';
 import apiRouter from './routes';
 import bullBoard from './utils/bullBoard';
 import sampleWorker from './workers/sampleWorker';
@@ -19,13 +18,7 @@ app.use('/api', apiRouter);
 app.use('/admin/queues', bullBoard.bullRouter);
 app.listen(PORT, () => {
   console.log(`Server Started on http://localhost:${PORT}`);
-
-  sampleQueueProducer('SampleJob', {
-    name: 'Pranav Kr',
-    company: 'Google',
-    position: 'SDE 2',
-    location: 'REMOTE',
-  });
+  console.log(`Server at: http://localhost:${PORT}/admin/queues/`);
 
   sampleWorker('SampleQueue');
 });

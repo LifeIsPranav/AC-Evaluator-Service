@@ -10,7 +10,7 @@ async function runCpp(code: string, testCase: string) {
   
   const rawLogBuffer: Buffer[] = [];
 
-  console.log('Initializing a new Java Docker Container');
+  console.log('Initializing a new Cpp Docker Container');
   await pullImage(CPP_IMG);
 
   const safeCode = code.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
@@ -41,7 +41,7 @@ async function runCpp(code: string, testCase: string) {
     console.log('Chunk :', ++count);
   });
 
-  await new Promise((res, _) => {
+  const response = await new Promise((res, _) => {
 
     loggerStream.on('end', () => {
       console.log(rawLogBuffer);
@@ -53,18 +53,19 @@ async function runCpp(code: string, testCase: string) {
       const decodedStream = decodeDockerStream(completeBuffer);
       console.log(decodedStream);
   
-      if(!decodedStream.stderr)
-      console.log(decodedStream.stdout);
+      // if(!decodedStream.stderr)
+      // console.log(decodedStream.stdout);
   
-      else
-      console.log(decodedStream.stderr);
+      // else
+      // console.log(decodedStream.stderr);
 
-      res(decodeDockerStream);
+      res(decodedStream);
     });
   });
 
   // Remove when Done
   await cppDockerContainer.remove();
+  return response;
 }
 
 export default runCpp;

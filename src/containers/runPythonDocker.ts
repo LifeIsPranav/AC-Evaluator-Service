@@ -39,26 +39,30 @@ async function runPython(code: string, testCase: string) {
     console.log('Chunk :', ++count);
   });
 
-  loggerStream.on('end', () => {
-    console.log(rawLogBuffer);
-    // console.log();
-    // const output = rawLogBuffer.toString();
-    // console.log(output);
-    // console.log();
-    const completeBuffer = Buffer.concat(rawLogBuffer);
-    const decodedStream = decodeDockerStream(completeBuffer);
-    console.log(decodedStream);
+  await new Promise((res, _) => {
 
-    if(!decodedStream.stderr)
-    console.log(decodedStream.stdout);
+    loggerStream.on('end', () => {
+      console.log(rawLogBuffer);
+      // console.log();
+      // const output = rawLogBuffer.toString();
+      // console.log(output);
+      // console.log();
+      const completeBuffer = Buffer.concat(rawLogBuffer);
+      const decodedStream = decodeDockerStream(completeBuffer);
+      console.log(decodedStream);
+  
+      if(!decodedStream.stderr)
+      console.log(decodedStream.stdout);
+  
+      else
+      console.log(decodedStream.stderr);
 
-    else
-    console.log(decodedStream.stderr);
-    pythonDockerContainer.remove();
-
+      res(decodeDockerStream);
+    });
   });
 
-  return pythonDockerContainer;
+  // Remove when Done
+  await pythonDockerContainer.remove();
 }
 
 export default runPython;

@@ -24,32 +24,24 @@ app.listen(PORT, () => {
   sampleWorker('SampleQueue');
 
   const code = `
-a = 10
-b = 2
+x = int(input())
+y = int(input())
+print('x:', x)
+print('y:', y)
+
 print()
-print("Subtraction:", a - b)
-print("Multiplication:", a * b)
-print("Division:", a / b)
+print('x+y: ', x+y)
 
 
-# Python program to display the Fibonacci sequence
-
-def recur_fibo(n):
-   if n <= 1:
-       return n
-   else:
-       return(recur_fibo(n-1) + recur_fibo(n-2))
-
-nterms = 20
-
-# check if the number of terms is valid
-if nterms <= 0:
-   print("Plese enter a positive integer")
-else:
-   print("Fibonacci sequence:")
-   for i in range(nterms):
-       print(recur_fibo(i))
-
+a = int(input())
+for i in range(a):
+  print(i)
 `;
-  runPython(code);
+
+  const tc = ` 10 
+20 
+10
+`;
+
+  runPython(code, tc);
 });

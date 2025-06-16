@@ -5,12 +5,21 @@ import { PYTHON_IMG } from '../utils/constants';
 import createContainer from './containerFactory';
 import decodeDockerStream from './dockerHelper';
 
-async function runPython(code: string) {
+async function runPython(code: string, testCase: string) {
   
   const rawLogBuffer: Buffer[] = [];
 
   console.log('Initializing a new Python Docker Container');
-  const pythonDockerContainer = await createContainer(PYTHON_IMG, ['python3', '-c', code, 'stty -echo']);
+
+  const safeCode = code.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  const safeTestCase = testCase.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  const runCommand = `printf "${safeCode}" > temp.py && echo "${safeTestCase}" | python3 temp.py`;
+
+  // let runCommand = `echo "${code}" > temp.py && echo "${testCase}" | python3 temp.py`;
+  // runCommand = runCommand.replace(/'/g, '\'\\"');
+
+  // const pythonDockerContainer = await createContainer(PYTHON_IMG, ['sh', '-c', `echo "${code}" > temp.py && echo "${testCase}" | python3 temp.py`]);
+  const pythonDockerContainer = await createContainer(PYTHON_IMG, ['sh', '-c', runCommand]);
   
   // Starting / Booting the corresponding Container
   await pythonDockerContainer.start();

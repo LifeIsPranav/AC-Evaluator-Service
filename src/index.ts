@@ -1,7 +1,9 @@
 import express, { Express } from 'express';
 
 import { PORT } from './config/serverConfig';
-import runPython from './containers/runPythonDocker';
+import runCpp from './containers/runCpp';
+// import runJava from './containers/runJavaDocker';
+// import runPython from './containers/runPythonDocker';
 import apiRouter from './routes';
 import bullBoard from './utils/bullBoard';
 import sampleWorker from './workers/sampleWorker';
@@ -24,24 +26,22 @@ app.listen(PORT, () => {
   sampleWorker('SampleQueue');
 
   const code = `
-x = int(input())
-y = int(input())
-print('x:', x)
-print('y:', y)
+#include <iostream>
+using namespace std;
 
-print()
-print('x+y: ', x+y)
+int main(void){
+int n;
+cin >> n;
 
-
-a = int(input())
-for i in range(a):
-  print(i)
+cout << 11111111 << endl;
+for(int i = 0; i < 10; i++)
+cout << n << endl;
+}
 `;
 
-  const tc = ` 10 
-20 
-10
-`;
+const tc = '278';
 
-  runPython(code, tc);
+  // runython(code, tc)
+  // runJava(code, tc);
+  runCpp(code, tc);
 });

@@ -1,31 +1,33 @@
 // import Docker from 'dockerode';
 
 // import { TestCases } from '../types/testCases';
-import { PYTHON_IMG } from '../utils/constants';
+import { CPP_IMG } from '../utils/constants';
 import createContainer from './containerFactory';
 import decodeDockerStream from './dockerHelper';
+import pullImage from './pullImage';
 
-async function runPython(code: string, testCase: string) {
+async function runCpp(code: string, testCase: string) {
   
   const rawLogBuffer: Buffer[] = [];
 
-  console.log('Initializing a new Python Docker Container');
+  console.log('Initializing a new Java Docker Container');
+  await pullImage(CPP_IMG);
 
   const safeCode = code.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
   const safeTestCase = testCase.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-  const runCommand = `echo "${safeCode}" > temp.py && echo "${safeTestCase}" | python3 temp.py`;
+  const runCommand = `echo "${safeCode}" > main.cpp && g++ main.cpp -o main && echo "${safeTestCase}" | stdbuf -oL -eL ./main`;
 
   // let runCommand = `echo "${code}" > temp.py && echo "${testCase}" | python3 temp.py`;
   // runCommand = runCommand.replace(/'/g, '\'\\"');
 
   // const pythonDockerContainer = await createContainer(PYTHON_IMG, ['sh', '-c', `echo "${code}" > temp.py && echo "${testCase}" | python3 temp.py`]);
-  const pythonDockerContainer = await createContainer(PYTHON_IMG, ['sh', '-c', runCommand]);
+  const cppDockerContainer = await createContainer(CPP_IMG, ['sh', '-c', runCommand]);
   
   // Starting / Booting the corresponding Container
-  await pythonDockerContainer.start();
+  await cppDockerContainer.start();
   console.log('Started Docker Container!');
 
-  const loggerStream = await pythonDockerContainer.logs({
+  const loggerStream = await cppDockerContainer.logs({
     stdout: true,
     stderr: true,
     timestamps: false,
@@ -62,7 +64,7 @@ async function runPython(code: string, testCase: string) {
   });
 
   // Remove when Done
-  await pythonDockerContainer.remove();
+  await cppDockerContainer.remove();
 }
 
-export default runPython;
+export default runCpp;

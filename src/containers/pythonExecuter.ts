@@ -9,8 +9,9 @@ import pullImage from './pullImage';
 
 class PythonExecuter implements CodeExecuterStrategy{
 
-  async execute(code: string, testCase: string): Promise<ExecutionResponse> {
-  
+  async execute(code: string, testCase: string, outputCase: string): Promise<ExecutionResponse> {
+
+    console.log(code, testCase, outputCase);
     const rawLogBuffer: Buffer[] = [];
 
     console.log('Initializing a new Python Docker Container');

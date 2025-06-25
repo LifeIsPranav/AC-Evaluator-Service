@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 
 import { PORT } from './config/serverConfig';
+import submissionQueue from './queues/submissionQueue';
 // import runCpp from './containers/runCpp';
 // import sampleQueueProducer from './producers/sampleQueueProducer';
 // import submissionQueueProducer from './producers/submissionQueueProducer';
@@ -11,7 +12,6 @@ import bullBoard from './utils/bullBoard';
 import { submission_queue } from './utils/constants';
 // import sampleWorker from './workers/sampleWorker';
 import submissionWorker from './workers/submissionWorker';
-import submissionQueue from './queues/submissionQueue';
 
 const app: Express = express();
 

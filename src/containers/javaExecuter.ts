@@ -9,9 +9,10 @@ import pullImage from './pullImage';
 
 class JavaExecuter implements CodeExecuterStrategy {
   async execute(code: string, testCase: string, outputCase: string): Promise<ExecutionResponse> {
-    
+
     console.log('Java Executer Called!');
     // console.log(code, testCase, outputCase);
+    console.log(outputCase);
     const rawLogBuffer: Buffer[] = [];
 
     console.log('Initializing a new Java Docker Container');

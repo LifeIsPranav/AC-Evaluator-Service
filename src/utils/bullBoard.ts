@@ -20,7 +20,6 @@ const addQueueToBullBoard = (queue: Queue) => {
   addQueue(new BullMQAdapter(queue));
 };
 
-
 const removeQueueFromBullBoard = (queueName: string) => {
   removeQueue(queueName);
 };
